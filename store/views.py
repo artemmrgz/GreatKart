@@ -13,3 +13,13 @@ def store(request, category_slug=None):
 
     context = {'products': products, 'product_count': count}
     return render(request, 'store.html', context=context)
+
+
+def product_detail(request, category_slug, product_slug):
+    try:
+        product = Product.objects.get(category__slug=category_slug, slug=product_slug)
+    except Product.DoesNotExist as e:
+        raise e
+    
+    context = {'product': product}
+    return render(request, 'product_detail.html', context=context)
